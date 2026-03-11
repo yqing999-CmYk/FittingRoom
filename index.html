@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Fitting Room</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Virtual Fitting Room</h1>
+    <p class="subtitle">Upload a person photo and clothing — see the result instantly</p>
+  </header>
+
+  <main>
+
+    <!-- ── Upload workspace ─────────────────────────────── -->
+    <section class="workspace">
+
+      <!-- Left: Person photo -->
+      <div class="panel" id="panel-person">
+        <div class="panel-header">
+          <span class="panel-title">Person Photo</span>
+          <button class="btn-clear" id="clear-person" hidden>Clear</button>
+        </div>
+        <div class="drop-zone" id="drop-person">
+          <input type="file" id="input-person" accept="image/*" hidden />
+          <img id="preview-person" hidden />
+          <div class="drop-hint" id="hint-person">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            <p>Click or drop<br/>person photo here</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center: Controls -->
+      <div class="controls-col">
+        <div class="controls-inner">
+          <label class="ctrl-label" for="category">Clothing type</label>
+          <select id="category" class="ctrl-select">
+            <option value="auto">Auto detect</option>
+            <option value="tops">Tops (T-shirt / hoodie / jacket)</option>
+            <option value="bottoms">Bottoms (pants / skirt)</option>
+            <option value="one-pieces">One-piece (dress / jumpsuit)</option>
+          </select>
+
+          <button id="btn-tryon" class="btn-primary" disabled>
+            Clothing Changing
+          </button>
+
+          <div id="status-box" hidden>
+            <div class="spinner"></div>
+            <span id="status-text">Waiting...</span>
+          </div>
+
+          <div id="error-box" hidden class="error-msg"></div>
+        </div>
+      </div>
+
+      <!-- Right: Garment photo -->
+      <div class="panel" id="panel-garment">
+        <div class="panel-header">
+          <span class="panel-title">Clothing Photo</span>
+          <button class="btn-clear" id="clear-garment" hidden>Clear</button>
+        </div>
+        <div class="drop-zone" id="drop-garment">
+          <input type="file" id="input-garment" accept="image/*" hidden />
+          <img id="preview-garment" hidden />
+          <div class="drop-hint" id="hint-garment">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            <p>Click or drop<br/>clothing photo here</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ── Result ────────────────────────────────────────── -->
+    <section id="result-section" hidden>
+      <h2 class="section-title">Result</h2>
+      <div class="result-card">
+        <img id="result-img" alt="Try-on result" />
+        <div class="result-actions">
+          <a id="download-link" class="btn-download" download="fitting-room-result.png">
+            Download
+          </a>
+          <button id="btn-video" class="btn-video">Gen Video</button>
+        </div>
+
+        <!-- Video generation controls -->
+        <div class="video-gen-row">
+          <div class="video-gen-field">
+            <label class="ctrl-label" for="video-duration">Duration</label>
+            <select id="video-duration" class="ctrl-select">
+              <option value="5">5 seconds</option>
+              <option value="10">10 seconds</option>
+            </select>
+          </div>
+          <div class="video-gen-field" style="flex:2">
+            <label class="ctrl-label" for="video-prompt">Motion hint (optional)</label>
+            <input type="text" id="video-prompt" class="ctrl-input"
+                   placeholder="e.g. walking, spinning, waving" />
+          </div>
+        </div>
+
+        <div id="video-status-box" hidden>
+          <div class="spinner"></div>
+          <span id="video-status-text">Generating video...</span>
+        </div>
+        <div id="video-error-box" hidden class="error-msg"></div>
+      </div>
+    </section>
+
+    <!-- ── Session gallery ───────────────────────────────── -->
+    <section id="gallery-section" hidden>
+      <h2 class="section-title">Session Results</h2>
+      <div class="gallery-strip" id="gallery"></div>
+    </section>
+
+    <!-- ── Generated video ───────────────────────────────── -->
+    <section id="video-section" hidden>
+      <h2 class="section-title">Generated Video</h2>
+      <div class="video-card">
+        <video id="result-video" controls loop playsinline></video>
+        <a id="video-download-link" class="btn-download" download="fitting-room-video.mp4">
+          Download Video
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
