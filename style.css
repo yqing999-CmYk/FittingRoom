@@ -1,0 +1,408 @@
+/* ── Reset & base ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #f0f2f5;
+  color: #222;
+  min-height: 100vh;
+}
+
+/* ── Header ────────────────────────────────────────────── */
+header {
+  background: #1a1a2e;
+  color: #fff;
+  padding: 24px 40px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  margin-top: 6px;
+  font-size: 0.95rem;
+  color: #a0a8c0;
+}
+
+/* ── Main ──────────────────────────────────────────────── */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+/* ── Workspace (3 columns) ─────────────────────────────── */
+.workspace {
+  display: grid;
+  grid-template-columns: 1fr 180px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* ── Panel ─────────────────────────────────────────────── */
+.panel {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  overflow: hidden;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.panel-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #444;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+/* ── Drop zone ─────────────────────────────────────────── */
+.drop-zone {
+  position: relative;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.drop-zone:hover { background: #f8f9fb; }
+.drop-zone.drag-over { background: #eef0ff; outline: 2px dashed #6c63ff; }
+
+.drop-zone img {
+  width: 100%;
+  height: 100%;
+  max-height: 380px;
+  object-fit: contain;
+  display: block;
+  padding: 8px;
+}
+
+.drop-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #aaa;
+  user-select: none;
+  text-align: center;
+  padding: 20px;
+}
+
+.drop-hint p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* ── Clear button ──────────────────────────────────────── */
+.btn-clear {
+  font-size: 0.78rem;
+  color: #e05252;
+  background: none;
+  border: 1px solid #e05252;
+  border-radius: 6px;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.btn-clear:hover { background: #e05252; color: #fff; }
+
+/* ── Controls column ───────────────────────────────────── */
+.controls-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+}
+
+.controls-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+
+.ctrl-label {
+  font-size: 0.78rem;
+  color: #666;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  align-self: flex-start;
+}
+
+.ctrl-select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  background: #fff;
+  cursor: pointer;
+  outline: none;
+}
+.ctrl-select:focus { border-color: #6c63ff; }
+
+/* ── Primary button ────────────────────────────────────── */
+.btn-primary {
+  width: 100%;
+  padding: 13px 10px;
+  background: #6c63ff;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: background 0.2s, transform 0.1s;
+}
+.btn-primary:hover:not(:disabled) { background: #574fd6; transform: translateY(-1px); }
+.btn-primary:active:not(:disabled) { transform: translateY(0); }
+.btn-primary:disabled { background: #c0bdf5; cursor: not-allowed; }
+
+/* ── Status / spinner ──────────────────────────────────── */
+#status-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e0deff;
+  border-top-color: #6c63ff;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+#status-text {
+  font-size: 0.82rem;
+  color: #666;
+  text-align: center;
+}
+
+/* ── Error ─────────────────────────────────────────────── */
+.error-msg {
+  width: 100%;
+  background: #fff0f0;
+  border: 1px solid #f5a0a0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.82rem;
+  color: #c0392b;
+  text-align: center;
+}
+
+/* ── Section titles ────────────────────────────────────── */
+.section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 16px;
+}
+
+/* ── Result card ───────────────────────────────────────── */
+#result-section {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 24px;
+}
+
+.result-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+#result-img {
+  max-width: 480px;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.btn-download {
+  display: inline-block;
+  padding: 10px 28px;
+  background: #1a1a2e;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.btn-download:hover { background: #2d2d50; }
+
+/* ── Gallery ───────────────────────────────────────────── */
+#gallery-section {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 24px;
+}
+
+.gallery-strip {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+}
+
+.gallery-strip::-webkit-scrollbar { height: 6px; }
+.gallery-strip::-webkit-scrollbar-track { background: #f0f0f0; border-radius: 3px; }
+.gallery-strip::-webkit-scrollbar-thumb { background: #c0bdf5; border-radius: 3px; }
+
+.gallery-item {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  position: relative;
+  cursor: pointer;
+}
+
+.gallery-item img {
+  width: 140px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.gallery-item img:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.gallery-item .item-download {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border-radius: 5px;
+  padding: 3px 7px;
+  font-size: 0.7rem;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.gallery-item:hover .item-download { opacity: 1; }
+
+/* ── Result actions row ────────────────────────────────── */
+.result-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ── Gen Video button ──────────────────────────────────── */
+.btn-video {
+  padding: 10px 28px;
+  background: #e8531a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.btn-video:hover { background: #c94415; transform: translateY(-1px); }
+.btn-video:active { transform: translateY(0); }
+.btn-video:disabled { background: #f0a080; cursor: not-allowed; }
+
+/* ── Video gen controls row ────────────────────────────── */
+.video-gen-row {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  max-width: 560px;
+  flex-wrap: wrap;
+}
+
+.video-gen-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 120px;
+}
+
+.ctrl-input {
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  outline: none;
+  width: 100%;
+}
+.ctrl-input:focus { border-color: #e8531a; }
+
+/* ── Video status box ──────────────────────────────────── */
+#video-status-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+#video-status-text {
+  font-size: 0.82rem;
+  color: #666;
+  text-align: center;
+}
+
+/* ── Video section ─────────────────────────────────────── */
+#video-section {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 24px;
+}
+
+.video-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+#result-video {
+  max-width: 560px;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  background: #000;
+}
